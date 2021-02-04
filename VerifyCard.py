@@ -2,13 +2,17 @@ import sys
 import re
 from datetime import date
 
-#check name validity
+# check name validity
+
+
 def validateName(name):
     exp = r'^[a-zA-Z ]+$'
-    if re.search(exp,name):
+    if re.search(exp, name):
         return True
     else:
         return False
+
+# helper Function for Number validity
 
 
 def sum_digits(digit):
@@ -18,7 +22,9 @@ def sum_digits(digit):
         sum = (digit % 10) + (digit // 10)
         return sum
 
-#check number validity
+# check number validity
+
+
 def validateNumber(cc_num):
     cc_num = cc_num[::-1]
     cc_num = [int(x) for x in cc_num]
@@ -30,20 +36,23 @@ def validateNumber(cc_num):
         else:
             doubled_second_digit_list.append(digit)
 
-    doubled_second_digit_list = [sum_digits(x) for x in doubled_second_digit_list] 
+    doubled_second_digit_list = [sum_digits(
+        x) for x in doubled_second_digit_list]
     sum_of_digits = sum(doubled_second_digit_list)
     return sum_of_digits % 10 == 0
 
 
-#check cvv validity
+# check cvv validity
 def validateCvv(cvv):
     exp = r'\d{3}'
-    if re.search(exp,cvv):
+    if re.search(exp, cvv):
         return True
     else:
         return False
 
-#check card Date validatity
+# check card Date validatity
+
+
 def validateExpiry(expiryDate):
     today = date.today()
     todayString = str(today)
@@ -58,27 +67,29 @@ def validateExpiry(expiryDate):
     todayMMInt = int(todayMM)
     todayYYInt = int(todayYY)
 
-   
-    print("Today ints", todayMMInt," ", todayYYInt)
-    print("Expiry ints", expiryMMInt," ", expiryYYInt)
-    
-    if(expiryYYInt<todayYYInt):
+    print("Today ints", todayMMInt, " ", todayYYInt)
+    print("Expiry ints", expiryMMInt, " ", expiryYYInt)
+
+    if(expiryYYInt < todayYYInt):
         return False
     elif(expiryYY == todayYY):
-        if(expiryMMInt< todayMMInt):
+        if(expiryMMInt < todayMMInt):
             return False
         else:
             return True
     else:
         return True
 
-#checking all details of a card
-def checkCardValidity(cardName, cardNumber, cardCvv,cardExpiry):
+# checking all details of a card
+
+
+def checkCardValidity(cardName, cardNumber, cardCvv, cardExpiry):
     cardNumValid = validateNumber(cardNumber)
     cardNameValid = validateName(cardName)
     cardCvvValid = validateCvv(cardCvv)
     cardExpiryValid = validateExpiry(cardExpiry)
     return(cardNameValid and cardNameValid and cardCvvValid and cardExpiryValid)
+
 
 if __name__ == "__main__":
     cardName = "GirishCB"
@@ -86,4 +97,5 @@ if __name__ == "__main__":
     cardCvv = "388"
     cardExpiry = "07/21"
 
-    print("Card valid?", checkCardValidity(cardName, cardNumber, cardCvv,cardExpiry))
+    print("Card valid?", checkCardValidity(
+        cardName, cardNumber, cardCvv, cardExpiry))

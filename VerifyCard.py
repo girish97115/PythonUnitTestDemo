@@ -12,7 +12,7 @@ def validateName(name):
     else:
         return False
 
-# helper Function for Number validity
+# helper Function for Number validity.
 
 
 def sum_digits(digit):
